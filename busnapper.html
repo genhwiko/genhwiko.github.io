@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="Busnapper is a mobile application that alerts the user when he/she is near their destination bus stop.">
+	<meta property='og:title' content="Busnapper"/>
+
+	<link rel="stylesheet" href="css/animate.css">
+	<script src="js/wow.min.js"></script>
+	<script>
+    new WOW().init();
+  </script>
+
+	<style type="text/css">
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Bold.ttf");
+		font-weight: 700;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Book.ttf");
+		font-weight: 300;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Medium.ttf");
+		font-weight: 500;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Light.ttf");
+		font-weight: 200;
+	}
+	</style>
+
+	<!-- <meta name="thumbnail" content="https://sherryyx.github.io/img/thumbnail.png">
+	<meta property="og:image" content="https://sherryyx.github.io/img/thumbnail.png"> -->
+	<title>Busnapper</title>
+	<link rel='icon' type='image/x-icon' href='/favicon.ico?'/>
+
+  <!-- fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="main">
+    <div class="nav">
+      <p class="nav-name">Min Gyo Kim</p>
+      <a class="nav-home" href="/">Home</a>
+      <hr class="nav-line">
+    </div>
+    <div class="title-container">
+      <div class="group group-2 wow fadeIn" data-wow-duration="3s">
+        <img src="img/busnapper-thumb.png" class="project-thumb" alt="Busnapper Image">
+        <h1 class="text-line project-title">Busnapper</h1>
+        <h3 class="text-line project-date">nwHacks · March 2017</h2>
+				<a class="text-line" href="https://github.com/calvinchengcc/busnapper"><img src="img/github.png" class="github-icon"></a>
+      </div>
+    </div>
+    <div class="text-container">
+      <div class="group group-1">
+        <div class="group group-2">
+          <p class="paragraph wow fadeInUp">Whether it is on the way to work or school, many people face long commute everyday. In a busy society, every minute and second matters; so does the time spent during those long commutes. Unfortunately, many find it hard to be productive in a moving vehicle, and they prefer to take a nap. However, this comes with a great risk of missing your bus stop - which I am sure has happened to every commuter at some point!</p>
+          <p class="paragraph wow fadeInUp">Busnapper is a mobile application that allows a user to specify the bus stop at which they wish to get off. Once the bus stop is specified, the user will be able to take a nap or do whatever he/she wishes. Once the user is within a 1 km radius of their desired location, his/her phone will start to vibrate, hopefully waking up the user in time.</p>
+        </div>
+				<div class="group group-2">
+					<h3 class="project-section">How it was built</h3>
+					<p class="paragraph wow fadeInUp">Busnapper was built with React Native at a 24-hour hackathon at UBC, in a team of 4 including myself. My tasks in the group involved the following:</p>
+					<ul class="bullet wow fadeInUp">
+						<li>Retrieve the coordinates of the current user location in real-time and display it on the map interface;</li>
+						<li>Implement a location search bar using GooglePlacesAutocompleteAPI;</li>
+						<li>Design user flow and implement various UI functions such as displaying bus stop information and panning/zooming the map to fit both the user location and destination bus stop on the map.</li>
+					</ul>
+				</div>
+				<div class="group group-2">
+					<h3 class="project-section">User Flow</h3>
+
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">1. User enters destination address</h4>
+						<img class="mobile-screen-1" src="img/flow1.png">
+						<p class="paragraph">First, the user enters the address of his/her destination. The original plan was to first display the map and show the user location, but we scrapped the plan when we encountered various run-time errors due to the initialization of the map before we could retrieve the user location.</p>
+					</div>
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">2. App shows bus stops near the user’s destination address</h4>
+						<img class="mobile-screen-1" src="img/flow2.png">
+						<p class="paragraph">My teammates built a function that interacts with the Translink API to plot all the bus stops in the current view of the map. Although the app pans the map to the destination address, the user can move freely around the map.</p>
+					</div>
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">3. User selects the bus stop</h4>
+						<img class="mobile-screen-2" src="img/flow3.png">
+						<img class="mobile-screen-2" src="img/flow4.png">
+						<p class="paragraph">Whenever the user clicks on a pin, a popup displays the information about the bus stop, retrieved from the Translink API. To set the desired pin as the destination bus stop, the user must click on the popup, which would lead to another prompt that confirms the user’s decision.</p>
+					</div>
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">4. Map pans out to show user location and the chosen bus stop</h4>
+						<img class="mobile-screen-1" src="img/flow5.png">
+						<p class="paragraph">The user can view their position relative to the destination bus stop, as frequently as they’d like.</p>
+					</div>
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">5. App alerts the user when they are almost at the bus stop</h4>
+						<img class="mobile-screen-1" src="img/flow6.png">
+						<p class="paragraph">The distance between the user location and the bus stop is calculated in real time, and when the distance is under 1km, the app alerts the user to wake up.</p>
+					</div>
+				</div>
+				<div class="group group-2 wow fadeInUp">
+					<h3 class="project-section">Final words</h3>
+					<p class="paragraph">We're definitely quite proud that we completed all that we set out to do, given that all of us had very limited mobile development experience to start. We weren't sure whether our project was too ambitious or too trivial as we scoped out our features—it turns out that our project was just the right size for our team!</p>
+				</div>
+			</div>
+    </div>
+  </div>
+</body>

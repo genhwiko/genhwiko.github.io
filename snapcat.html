@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="Snap Cat is a real-time face and facial features detector for cats.">
+	<meta property='og:title' content="Snap Cat"/>
+
+	<link rel="stylesheet" href="css/animate.css">
+	<script src="js/wow.min.js"></script>
+	<script>
+    new WOW().init();
+  </script>
+
+	<style type="text/css">
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Bold.ttf");
+		font-weight: 700;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Book.ttf");
+		font-weight: 300;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Medium.ttf");
+		font-weight: 500;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Light.ttf");
+		font-weight: 200;
+	}
+	</style>
+
+	<!-- <meta name="thumbnail" content="https://sherryyx.github.io/img/thumbnail.png">
+	<meta property="og:image" content="https://sherryyx.github.io/img/thumbnail.png"> -->
+	<title>Snap Cat</title>
+	<link rel='icon' type='image/x-icon' href='/favicon.ico?'/>
+
+  <!-- fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="main">
+    <div class="nav">
+      <p class="nav-name">Min Gyo Kim</p>
+      <a class="nav-home" href="/">Home</a>
+      <hr class="nav-line">
+    </div>
+    <div class="title-container">
+      <div class="group group-2 wow fadeIn" data-wow-duration="3s">
+        <img src="img/nemo.jpg" class="project-thumb" alt="Snap Cat Image">
+        <h1 class="text-line project-title">Snap Cat</h1>
+        <h3 class="text-line project-date">September 2017 to present</h2>
+				<a class="text-line" href="https://github.com/mingyokim/CatFaceDetector"><img src="img/github.png" class="github-icon"></a>
+      </div>
+    </div>
+    <div class="text-container">
+      <div class="group group-1">
+        <div class="group group-2 wow fadeInUp">
+          <p class="paragraph">Have you ever wished that Snapchat would apply their filters on your cat? I know, me too. And I’m going to do something about it.</p>
+          <p class="paragraph">Snap Cat is a real-time cat face and facial features detection system. This project will be eventually deployed as a mobile app to apply real-time filters on your favorite cats, similar to Snapchat.</p>
+          <p class="paragraph">Before we start off, huge credits to Darknet, an open source neural network framework, which I used to implement Snap Cat. It’s amazing because it allows someone with no knowledge of machine learning to generate models capable of detecting objects at an outstanding accuracy.</p>
+          <p class="paragraph">Unfortunately, I have not finished building Snap Cat (I started 3 days ago, from the time of writing). However, I have reached my first major milestone, which is using Deep Learning to train object detection models for cat face and facial features, benchmarking performance, and producing some visual demos.</p>
+        </div>
+        <div class="group group-2">
+          <p class="paragraph">Here is a video demo of cat face and facial features detections:</p>
+          <br>
+          <div class="videowrapper"><iframe src="https://www.youtube.com/embed/pF9N7I6yCwE" frameborder="0" allowfullscreen></iframe></div>
+        </div>
+        <div class="group group-2">
+          <h3 class="project-section">How it works</h3>
+          <p class="paragraph">The general workflow goes as follows, given image A:</p>
+          <ul class="bullet">
+            <li>Detect cat face on A;</li>
+            <li>If a face is detected, detect features within the face.</li>
+          </ul>
+          <p class="paragraph">The idea behind this two-step process is that we limit the detection area for facial features to a small subset of the original image. This makes feature detection much easier to learn for our models and helps reduce error.</p>
+        </div>
+        <div class="group group-2">
+          <h3 class="project-section">Performance</h3>
+          <p class="paragraph">Currently, the accuracy of the cat face detector is at 97.5%, and the facial feature detector is at 99.7%. I am satisfied with the performance of the latter, but I am still working on improving the cat face detector.</p>
+          <!-- TODO: include performance graphs -->
+        </div>
+        <div class="group group-2">
+          <h3 class="project-section">Process</h3>
+
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">1. Gather the data</h4>
+	          <p class="paragraph">I did quite a bit of digging on Google to finally find a dataset suitable for my purposes. http://mmlab.ie.cuhk.edu.hk/ has 10,000 cat images where each cat head is manually labeled with 9 points, one for mouth, two for eyes, and six for ears, as demonstrated in the images below. This means that we can use these annotations to train our model to detect 3 main features of cat faces. We can also use this dataset to detect faces; we can calculate where the face is by doing some geometric calculations based on facial proportions.</p>
+	          <img src="img/annotation1.png" style="float: left; width: 45%; margin: 2.5%; margin-bottom: 0.5%">
+	          <img src="img/annotation2.png" style="float: right; width: 45%; margin: 2.5%; margin-bottom: 0.5%">
+	          <a class="source" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2008/10/ECCV_CAT_PROC.pdf">Image source</a>
+					</div>
+
+					<div>
+	          <h4 class="project-sub-section wow fadeInLeft">2. Start training</h4>
+	          <p class="paragraph">I used Darknet as the framework to train my object detection models. All you have to do is modify your dataset to comform to a format required by the framework. This would involve generating bounding rectangles around the eyes, ears, mouths, and the faces from the points given. It can be easily done using OpenCV library.</p>
+	          <p class="paragraph">Since we are dealing with images, we need a convolutional neural network. I decided to use YOLOv2, since they claimed that they were faster and more accurate than other convolutional neural networks out there such as SSD, AlexNet, and Faster R-CNN.</p>
+	          <p class="paragraph">Also, we cannot use our entire dataset for training. We have to save a portion of it to see how our models perform when given  images that they have not seen before. This will become clearer in the next step.</p>
+					</div>
+
+					<div>
+	          <h4 class="project-sub-section wow fadeInLeft">3. Select the best training iteration</h4>
+	          <p class="paragraph">Contrary to what you may think, more training does not necessarily mean that we get a better performance. If you train for too long, it will result in “overfitting”; which means that the model will only work well with the training dataset, and that it will perform worse on the images that it has never seen before. So, I identified the “early stopping point” of the training, a point where our model has the highest performance with unfamiliar images.</p>
+	          <img src="img/overfitting.png" id="overfitting">
+					</div>
+
+					<div>
+	          <h4 class="project-sub-section wow fadeInLeft">4. Build your application! (ongoing)</h4>
+	          <p class="paragraph">The only thing left to do is to build your application. This part can be challenging because you have to integrate your app with the Darknet framework, as well as other libraries such as OpenCV. So far, I have built an interim program written in C++ that helps visualize detections on images and videos. You can check it out at <a href="https://github.com/mingyokim/CatFaceDetector" class="paragraph-link">my Github repository</a>.</p>
+					</div>
+			  </div>
+        <div class="group group-2 wow fadeInUp">
+          <h3 class="project-section">Next Steps</h3>
+          <p class="paragraph">The next step would be to deploy a mobile app. This is the most challenging part because although convolutional neural networks run blazingly fast on GPU’s, mobile devices have far less computing resources available. However, I can think of a few solutions to this problem:</p>
+          <ul class="bullet">
+            <li>Change the precision of weights from floating point to integer 8-bit, which speeds up CPU computation on embedded devices;</li>
+            <li>Use advanced cache organization to speed up data access;</li>
+            <li>Perform object tracking in between intervals of detections, which is less computationally expensive.</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+</body>

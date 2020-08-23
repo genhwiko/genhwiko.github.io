@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="Visualization of AirBnB listings as heatmaps.">
+	<meta property='og:title' content="AirBnB Data Visualization"/>
+
+	<link rel="stylesheet" href="css/animate.css">
+	<script src="js/wow.min.js"></script>
+	<script>
+    new WOW().init();
+  </script>
+
+	<style type="text/css">
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Bold.ttf");
+		font-weight: 700;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Book.ttf");
+		font-weight: 300;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Medium.ttf");
+		font-weight: 500;
+	}
+	@font-face {
+		font-family: Post Grotesk;
+		src: url("font/PostGrotesk-Light.ttf");
+		font-weight: 200;
+	}
+	</style>
+
+	<!-- <meta name="thumbnail" content="https://sherryyx.github.io/img/thumbnail.png">
+	<meta property="og:image" content="https://sherryyx.github.io/img/thumbnail.png"> -->
+	<title>AirBnB Data Visualization</title>
+	<link rel='icon' type='image/x-icon' href='/favicon.ico?'/>
+
+  <!-- fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="main">
+    <div class="nav">
+      <p class="nav-name">Min Gyo Kim</p>
+      <a class="nav-home" href="/">Home</a>
+      <!-- <div class="nav-line"></div> -->
+      <hr class="nav-line">
+    </div>
+		<img src="img/airbnb-banner.png" class="project-banner  wow fadeIn" data-wow-duration="3s" alt="Airbnb Image">
+    <div class="title-container">
+      <div class="group group-2 wow fadeIn" data-wow-duration="3s">
+        <!-- <img src="img/airbnb-banner.png" class="project-banner" alt="Airbnb Image"> -->
+        <h1 class="text-line project-title">AirBnB Data Visualization</h1>
+        <h3 class="text-line project-date">February 2017</h2>
+				<a class="text-line" href="https://github.com/mingyokim/django_website"><img src="img/github.png" class="github-icon-2"></a>
+				<a class="text-line" href="http://mingyokim.herokuapp.com/airbnb"><img src="img/world.png" class="website-icon-2"></a>
+      </div>
+    </div>
+    <div class="text-container">
+      <div class="group group-1">
+        <div class="group group-2 wow fadeInUp">
+          <p class="paragraph">With the “big data phenomenon”, there is a growing need to be able to interpret a large set of data. That is why I tried visualizing the distribution of AirBnB listings in 43 different cities by building a web app.</p>
+        </div>
+				<div class="group group-2">
+					<h3 class="project-section">Examples</h3>
+					<div class="img-2 wow fadeInLeft">
+						<h5 class="img-tag">New York City</h5>
+						<img src="img/newyork.png" width="100%">
+					</div>
+					<div class="img-2 wow fadeInLeft">
+						<h5 class="img-tag">Los Angeles</h5>
+						<img src="img/la.png" width="100%">
+					</div>
+					<div class="img-2 wow fadeInLeft">
+						<h5 class="img-tag">Montreal</h5>
+						<img src="img/montreal.png" width="100%">
+					</div>
+					<div class="img-2 wow fadeInLeft">
+						<h5 class="img-tag">Washington, D.C.</h5>
+						<img src="img/dc.png" width="100%">
+					</div>
+				</div>
+				<div class="group group-2">
+					<h3 class="project-section">How it was built</h3>
+
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">1. Scraping the web</h4>
+						<p class="paragraph">Fortunately, I was able to find enough data on <a href="http://insideairbnb.com/get-the-data.html" class="paragraph-link">this website.</a> It contains a csv file for each of 43 different cities, which contains information about every AirBnB listing in that city, including their coordinates (latitude and longitude) and price.</p>
+						<p class="paragraph">Great, we found 43 csv files that contain all the data we need. Now, to actually extract information from these files, I could have downloaded each of them manually onto my computer.  This sounds pretty tedious and messy, right? So instead, I decided to take advantage of the consistent HTML structure of the website to perform web scraping. For example, all the download links could be in the children of a certain tag; in which case you can just loop through all the children of that tag and obtain the csv file. Python has a great library to help you do this easily, called BeautifulSoup. The difficulty of this task really depends on how easily you can find a pattern in the HTML structure of the web page you are looking to scrape.</p>
+					</div>
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">2. Creating a database</h4>
+						<p class="paragraph">Now that we have all the csv files available for us to use, we can start creating a database. When I was working on the project, I had no knowledge in databases at all, so the database techniques that I used are not the most efficient.</p>
+						<p class="paragraph">That being said, I created a single table with four columns: city name, latitude, longitude, and price, and with each row representing a single listing.</p>
+						<p class="paragraph">Initially, creating the database took approximately 20 minutes, and I wondered why it was so slow. It turned out that I had one transaction for each operation. I reduced the time to less than a second by doing all operations in one transaction.</p>
+					</div>
+					<div>
+						<h4 class="project-sub-section wow fadeInLeft">3. Building a web app</h4>
+						<p class="paragraph">I decided to experiment with Django for this project since it is relatively well documented and it allows interaction with a databse.</p>
+						<p class="paragraph">The general user flow is that the user posts their query to the server, namely which city’s heatmap they want to see. Then the server extracts all listings from the database that are in the requested city and plots a heatmap.</p>
+						<p class="paragraph">In Django, we can interact with a database by creating a “model” object. It also allows us to configure different views based on whether the user had just submitted the query or not. If they have, my app will display the heatmap. If not, it will simply display a list of cities they can choose from to submit a query.</p>
+						<p class="paragraph">How do you plot a heatmap? Fortunately, Google Maps API has a neat feature in Javascript called a heat map layer, which you can lay on top of a map view. You simply need to supply a list of coordinates to plot on your end. That is all.</p>
+					</div>
+				</div>
+				<div class="group group-2 wow fadeInUp">
+					<h3 class="project-section">Rooms for improvement</h3>
+					<p class="paragraph">This web app is certainly functional. However, it can definitely use a lot of improvement in the UI design and processing time. As of now, it can take up to 10 seconds to load a heatmap. This can definitely be sped up with a better database structure. </p>
+					<p class="paragraph">For example, adding indices on the city column would have saved a lot of time, since the app is always filtering by city. Furthermore, storing the city by id rather than the full name would make the filtering a lot faster, since integer comparison is more performant than string.</p>
+					<p class="paragraph">Furthermore, automatically keeping the database up to date would be a nice feature to add.</p>
+				</div>
+      </div>
+    </div>
+  </div>
+</body>
